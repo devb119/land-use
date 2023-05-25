@@ -5,3 +5,4 @@ export { default as OWMTileLayer } from "./OWMTileLayer";
 export { default as InfoBox } from "./InfoBox/InfoBox";
 export { default as RoundSpinner } from "./RoundSpinner";
 export { default as LegendLayer } from "./LegendLayer";
+export { default as Sidebar } from "./Sidebar";

@@ -67,7 +67,7 @@ const LegendLayer = () => {
     mapMode.title && (
       <div className="flex flex-col absolute p-0 m-0 text-center font-bold right-8 top-32">
         <span className="bg-white">{mapMode.unit}</span>
-        {units[mapMode.title].map((valueUnit, index) => {
+        {units[mapMode.title]?.map((valueUnit, index) => {
           return (
             <span
               className={`px-2 text-center ${
