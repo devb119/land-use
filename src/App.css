@@ -33,6 +33,10 @@
   color: #ffffff !important;
 }
 
+.leaflet-left {
+  left: 5rem !important;
+}
+
 .leaflet-gac-wrapper {
   display: flex;
   align-items: center;
@@ -44,7 +48,7 @@
 }
 
 .leaflet-gac-wrapper::before {
-  content: "WEATHERMAP";
+  content: "LAND USE";
   font-size: 32px;
   font-weight: 600;
   color: #3697d1;
