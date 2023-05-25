@@ -59,6 +59,7 @@ module.exports = {
         base: "rgb(47, 101, 143)",
         icon: "rgb(53, 151, 209)",
         active: "rgb(247, 167, 21)",
+        mainGray: "#777777",
       },
     },
   },
