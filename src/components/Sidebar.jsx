@@ -18,6 +18,9 @@ const Sidebar = () => {
 
   return (
     <div className="fixed bg-gray-200 left-0 h-screen top-0 z-10 flex flex-col w-16">
+      <div className="h-24 flex items-center justify-center">
+        <img src="/australia.svg" className="w-4/5" alt="australia symbol" />
+      </div>
       {items.map((item) => (
         <button
           className={`flex flex-col items-center justify-center hover:bg-white h-20 transition-all text-mainGray ${
