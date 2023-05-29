@@ -59,6 +59,15 @@ const units = {
     { value: 5, color: "rgba(238,206,206, 0.4)" },
     { value: 1, color: "rgba(255,255,255, 0)" },
   ],
+  "LAND USE 1": [
+    { value: "Forest", color: "#298944", text: "#ffffff" },
+    { value: "Low-density vegetation", color: "#ADFFB5", text: "#333333" },
+    { value: "Bare soil", color: "#000000", text: "#ffffff" },
+    { value: "Agricultural land", color: "#FFAA00", text: "#ffffff" },
+    { value: "Urban area", color: "#FF0000", text: "#ffffff" },
+    { value: "Rural area", color: "#47828F", text: "#ffffff" },
+    { value: "Water", color: "#0000FF", text: "#ffffff" },
+  ],
 };
 
 const LegendLayer = () => {
@@ -76,7 +85,10 @@ const LegendLayer = () => {
                   : "text-white"
               } font-bold`}
               key={index}
-              style={{ background: `${valueUnit.color}` }}
+              style={{
+                background: `${valueUnit.color}`,
+                color: valueUnit.text ? valueUnit.text : null,
+              }}
             >
               {valueUnit.value}
             </span>
