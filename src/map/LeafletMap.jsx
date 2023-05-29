@@ -1,14 +1,14 @@
 import React from "react";
 import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { MyPopup, OWMTileLayer, SearchBar } from "../components";
+import { MyLayer, MyPopup, OWMTileLayer, SearchBar } from "../components";
 import GeneralInfo from "../components/GeneralInfo";
 
 const LeafletMap = () => {
   return (
     <MapContainer
-      center={[21.0038, 105.839]}
-      zoom={13}
+      center={[-24.327077, 134.248541]}
+      zoom={5}
       zoomControl={false}
       className="h-full w-full relative"
       style={{ zIndex: 0 }}
@@ -20,6 +20,7 @@ const LeafletMap = () => {
       <ZoomControl position="topright" />
       <SearchBar />
       <MyPopup />
+      <MyLayer />
       <OWMTileLayer />
       <GeneralInfo />
     </MapContainer>

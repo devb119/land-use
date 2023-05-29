@@ -1,5 +1,5 @@
 export const initialState = {
-  latlng: new L.latLng(21.005, 105.844),
+  latlng: new L.latLng(-24.327077, 134.248541),
   address: "",
   mapMode: {},
   isOpenInfo: false,
