@@ -49,6 +49,10 @@ const Information = () => {
   ) : (
     <div className="flex flex-col gap-0">
       <div className="mb-3">
+        <p className="mb-3">
+          According to land use data, current location is{" "}
+          <b>low-density vegetation</b> area
+        </p>
         <h6 className="uppercase mb-1 text-active text-lg">Current weather</h6>
         <div className="mt-0 mb-1 flex gap-3">
           {currentWeather ? (

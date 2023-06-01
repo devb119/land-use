@@ -28,8 +28,9 @@
 
 .toggle-info-btn {
   position: fixed;
-  top: 7.4rem;
-  left: 26.5rem;
+  top: 7.2rem;
+  left: 28.5rem;
+  color: rgb(53, 151, 209);
   background-color: transparent;
   width: 2rem;
   height: 2rem;

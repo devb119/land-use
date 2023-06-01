@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { Tabs, Tab } from "@mui/material";
-import { BsStack } from "react-icons/bs";
+import { BsStack, BsFillBarChartFill } from "react-icons/bs";
 import "./InfoBox.styles.css";
 import { useStateValue } from "../../context/StateProvider";
 import { actionType } from "../../context/reducer";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import Information from "./Information";
+import Analysis from "./Analysis";
 
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,6 +26,11 @@ export function TabPanel(props) {
 
 const InfoBox = () => {
   const [{ isOpenInfo, address, latlng }, dispatch] = useStateValue();
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
 
   const handleToggleInfo = () => {
     dispatch({ type: actionType.SET_IS_OPEN_INFO, isOpenInfo: !isOpenInfo });
@@ -31,12 +38,17 @@ const InfoBox = () => {
 
   return (
     <div className="info-box" style={{ maxHeight: isOpenInfo ? "28rem" : 0 }}>
-      <Tabs value={0} variant="fullWidth" className="fixed-tab">
+      <Tabs
+        value={currentTab}
+        variant="fullWidth"
+        className="fixed-tab"
+        onChange={handleChange}
+      >
+        <Tab icon={<BsStack />} iconPosition="start" label="Information" />
         <Tab
-          icon={<BsStack />}
+          icon={<BsFillBarChartFill />}
           iconPosition="start"
-          label="Information"
-          onClick={handleToggleInfo}
+          label="Analysis"
         />
       </Tabs>
       <div className="p-3 mt-fixed relative">
@@ -53,7 +65,12 @@ const InfoBox = () => {
             3
           )}`}
         </p>
-        <Information />
+        <TabPanel value={currentTab} index={0}>
+          <Information />
+        </TabPanel>
+        <TabPanel value={currentTab} index={1}>
+          <Analysis />
+        </TabPanel>
       </div>
     </div>
   );
