@@ -3,11 +3,12 @@ import { useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
 
 const layer = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
-  layers: "test:lo",
-  format: "image/jpeg",
+  layers: "GU:big_layer",
   transparent: true,
+  format: "image/jpeg",
   version: "1.1.0",
   attribution: "Your attribution",
+  // crossOrigin: "anonymous",
 });
 
 const MyLayer = () => {
