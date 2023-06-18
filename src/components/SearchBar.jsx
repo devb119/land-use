@@ -35,7 +35,7 @@ export default function SearchBar() {
           ],
         });
         const latlng = L.latLng(loc.lat(), loc.lng());
-        map.setView(latlng, 15, { animate: true });
+        map.setView(latlng, 4, { animate: true });
         dispatch({ type: actionType.SET_LAT_LNG, latlng });
       },
       position: "topleft",
