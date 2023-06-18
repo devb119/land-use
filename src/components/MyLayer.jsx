@@ -2,7 +2,7 @@ import { useMap } from "react-leaflet";
 import { useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
 
-const layer = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
+const layer = L.tileLayer.wms("http://106.254.237.82:8080/geoserver/wms", {
   layers: "GU:big_layer",
   transparent: true,
   format: "image/jpeg",
