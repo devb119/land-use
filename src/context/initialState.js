@@ -6,4 +6,5 @@ export const initialState = {
   currentWeather: null,
   isLoadingInfo: true,
   forecastData: null,
+  bbox: null,
 };

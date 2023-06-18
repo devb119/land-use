@@ -26,7 +26,6 @@ const GeneralInfo = () => {
           type: actionType.SET_CURRENT_WEATHER,
           currentWeather: data[1],
         });
-        console.log(data[1]);
         dispatch({
           type: actionType.SET_FORECAST_DATA,
           forecastData: data[2].list,

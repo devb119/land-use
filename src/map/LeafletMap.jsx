@@ -1,7 +1,13 @@
 import React from "react";
 import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { MyLayer, MyPopup, OWMTileLayer, SearchBar } from "../components";
+import {
+  CountryBox,
+  MyLayer,
+  MyPopup,
+  OWMTileLayer,
+  SearchBar,
+} from "../components";
 import GeneralInfo from "../components/GeneralInfo";
 
 const LeafletMap = () => {
@@ -21,6 +27,7 @@ const LeafletMap = () => {
       <SearchBar />
       <MyPopup />
       <MyLayer />
+      <CountryBox />
       <OWMTileLayer />
       <GeneralInfo />
     </MapContainer>

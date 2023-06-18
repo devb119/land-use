@@ -6,6 +6,7 @@ export const actionType = {
   SET_CURRENT_WEATHER: "SET_CURRENT_WEATHER",
   SET_IS_LOADING_INFO: "SET_IS_LOADING_INFO",
   SET_FORECAST_DATA: "SET_FORECAST_DATA",
+  SET_BBOX: "SET_BBOX",
 };
 
 const reducer = (state, action) => {
@@ -24,6 +25,8 @@ const reducer = (state, action) => {
       return { ...state, isLoadingInfo: action.isLoadingInfo };
     case actionType.SET_FORECAST_DATA:
       return { ...state, forecastData: action.forecastData };
+    case actionType.SET_BBOX:
+      return { ...state, bbox: action.bbox };
     default:
       return state;
   }
