@@ -8,3 +8,4 @@ export { default as LegendLayer } from "./LegendLayer";
 export { default as Sidebar } from "./Sidebar";
 export { default as MyLayer } from "./MyLayer";
 export { default as CountryBox } from "./CountryBox";
+export { default as LandUsePolygon } from "./LandUsePolygon";

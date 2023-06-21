@@ -1,5 +1,5 @@
 {
-  "name": "weather-map",
+  "name": "landuse",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,7 +20,8 @@
     "react-icons": "^4.8.0",
     "react-leaflet": "^4.2.1",
     "react-spinners": "^0.13.8",
-    "recharts": "^2.5.0"
+    "recharts": "^2.5.0",
+    "spherical-geometry-js": "^3.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

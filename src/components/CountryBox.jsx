@@ -50,7 +50,6 @@ const CountryBox = () => {
   const vn = countryBoundingBox.AUS;
   const centroid = centroids[179];
   const [{ bbox }] = useStateValue();
-  console.log(centroid);
   const polygon = [
     [vn.ne.lat, vn.sw.lon],
     [vn.ne.lat, vn.ne.lon],

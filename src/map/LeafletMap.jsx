@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import {
   CountryBox,
+  LandUsePolygon,
   MyLayer,
   MyPopup,
   OWMTileLayer,
@@ -27,6 +28,7 @@ const LeafletMap = () => {
       <SearchBar />
       <MyPopup />
       <MyLayer />
+      <LandUsePolygon />
       <CountryBox />
       <OWMTileLayer />
       <GeneralInfo />
