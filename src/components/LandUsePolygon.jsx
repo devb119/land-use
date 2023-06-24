@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Polygon } from "react-leaflet";
 import { big, small } from "../constants";
 import { useStateValue } from "../context/StateProvider";
 import { polygon, area } from "@turf/turf";
+import { actionType } from "../context/reducer";
 
 const colorMap = {
   "Bare rocks": "#BEBEBE",
@@ -27,10 +28,28 @@ const checkBig = {};
 const checkSmall = {};
 
 const LandUsePolygon = () => {
-  const [{ zoom, mapMode }] = useStateValue();
+  const [{ zoom, mapMode, landUseInfo }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    if (zoom == 14) {
+      dispatch({ type: actionType.SET_LAND_USE_INFO, landUseInfo: {} });
+    }
+    return () =>
+      dispatch({ type: actionType.SET_LAND_USE_INFO, landUseInfo: {} });
+  }, [zoom]);
 
   return (
     <>
+      {mapMode?.title === "LAND USE 2" && landUseInfo?.polygon ? (
+        <Polygon
+          pathOptions={{ color: colorMap[landUseInfo?.label] }}
+          positions={landUseInfo?.polygon}
+          fill={true}
+          fillOpacity={0.8}
+        />
+      ) : (
+        ""
+      )}
       {mapMode.title === "LAND USE 2"
         ? zoom > 12
           ? small.map((feature) => {
@@ -40,6 +59,21 @@ const LandUsePolygon = () => {
                 <Polygon
                   pathOptions={{ color: colorMap[feature.label] }}
                   positions={feature.polygon}
+                  key={feature.polygon[0]}
+                  eventHandlers={{
+                    click: () => {
+                      console.log(feature.label);
+                      const S = area(polygon([feature.polygon]));
+                      dispatch({
+                        type: actionType.SET_LAND_USE_INFO,
+                        landUseInfo: {
+                          label: feature.label,
+                          area: S,
+                          polygon: feature.polygon,
+                        },
+                      });
+                    },
+                  }}
                 />
               );
             })
@@ -50,14 +84,20 @@ const LandUsePolygon = () => {
                 <Polygon
                   pathOptions={{ color: colorMap[feature.label] }}
                   positions={feature.polygon}
+                  key={feature.polygon[0]}
                   eventHandlers={{
                     click: () => {
-                      console.log(feature.label);
                       const S = area(polygon([feature.polygon]));
-                      console.log(S);
+                      dispatch({
+                        type: actionType.SET_LAND_USE_INFO,
+                        landUseInfo: {
+                          label: feature.label,
+                          area: S,
+                          polygon: feature.polygon,
+                        },
+                      });
                     },
                   }}
-                  key={feature.polygon[0]}
                 />
               );
             })
