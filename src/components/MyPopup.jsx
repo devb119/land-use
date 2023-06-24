@@ -6,7 +6,7 @@ const MyPopup = () => {
   const [{ latlng, address }] = useStateValue();
 
   return (
-    <Popup position={latlng}>
+    <Popup position={latlng} autoPan={false}>
       <div className="flex flex-col w-72">
         <h6 className="text-lg font-bold">{address}</h6>
         <p className="m-0 text-sm">

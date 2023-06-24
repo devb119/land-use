@@ -7,6 +7,7 @@ export const actionType = {
   SET_IS_LOADING_INFO: "SET_IS_LOADING_INFO",
   SET_FORECAST_DATA: "SET_FORECAST_DATA",
   SET_BBOX: "SET_BBOX",
+  SET_ZOOM: "SET_ZOOM",
 };
 
 const reducer = (state, action) => {
@@ -27,6 +28,8 @@ const reducer = (state, action) => {
       return { ...state, forecastData: action.forecastData };
     case actionType.SET_BBOX:
       return { ...state, bbox: action.bbox };
+    case actionType.SET_ZOOM:
+      return { ...state, zoom: action.zoom };
     default:
       return state;
   }

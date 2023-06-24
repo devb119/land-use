@@ -1,15 +1,19 @@
 import { useEffect } from "react";
-import { useMapEvents } from "react-leaflet";
+import { useMap, useMapEvents } from "react-leaflet";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import { getAddress, getCurrentWeather, getForecastWeather } from "../apis";
 
 const GeneralInfo = () => {
-  const [{ latlng }, dispatch] = useStateValue();
+  const [{ latlng, zoom }, dispatch] = useStateValue();
+  const map = useMap();
 
   useMapEvents({
     click(e) {
       dispatch({ type: actionType.SET_LAT_LNG, latlng: e.latlng });
+    },
+    zoomend() {
+      dispatch({ type: actionType.SET_ZOOM, zoom: map.getZoom() });
     },
   });
 

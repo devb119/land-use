@@ -7,4 +7,5 @@ export const initialState = {
   isLoadingInfo: true,
   forecastData: null,
   bbox: null,
+  zoom: 5,
 };
