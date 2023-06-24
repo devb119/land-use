@@ -28,7 +28,7 @@ const LeafletMap = () => {
       <SearchBar />
       <MyPopup />
       <MyLayer />
-      {/* <LandUsePolygon /> */}
+      <LandUsePolygon />
       <CountryBox />
       <OWMTileLayer />
       <GeneralInfo />
