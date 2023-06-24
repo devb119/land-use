@@ -8,9 +8,11 @@ import { TabPanel } from "./InfoBox";
 import { getForecastWeather } from "../../apis";
 import MinMaxChart from "./MinMaxChart";
 import SingleLineChart from "./SingleLineChart";
+import { plants } from "../LegendLayer";
 
 const Information = () => {
-  const [{ currentWeather, isLoadingInfo, latlng }] = useStateValue();
+  const [{ currentWeather, isLoadingInfo, latlng, landUseInfo, mapMode }] =
+    useStateValue();
   const [pressureChartData, setPressureChartData] = useState(null);
   const [humidityChartData, setHumidityChartData] = useState(null);
   const [cloudsChartData, setCloudsChartData] = useState(null);
@@ -49,10 +51,26 @@ const Information = () => {
   ) : (
     <div className="flex flex-col gap-0">
       <div className="mb-3">
-        <p className="mb-3">
-          According to land use data, current location is{" "}
-          <b>low-density vegetation</b> area
-        </p>
+        {mapMode?.title === "LAND USE 2" && landUseInfo?.label ? (
+          <>
+            <p className="mb-3">
+              According to land use data, current location is{" "}
+              <strong>{landUseInfo?.label}</strong> area.
+            </p>
+            <p className="mb-3">
+              Selected area is{" "}
+              <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
+              <strong>
+                {plants.includes(landUseInfo?.label)
+                  ? `This area absorbs approximately ${Math.floor(
+                      0.0001 * landUseInfo?.area * 22.6
+                    )} tons of carbon dioxide per year`
+                  : null}
+              </strong>
+            </p>
+          </>
+        ) : null}
+
         <h6 className="uppercase mb-1 text-active text-lg">Current weather</h6>
         <div className="mt-0 mb-1 flex gap-3">
           {currentWeather ? (
