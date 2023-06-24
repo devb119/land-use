@@ -8,6 +8,7 @@ export const actionType = {
   SET_FORECAST_DATA: "SET_FORECAST_DATA",
   SET_BBOX: "SET_BBOX",
   SET_ZOOM: "SET_ZOOM",
+  SET_LAND_USE_INFO: "SET_LAND_USE_INFO",
 };
 
 const reducer = (state, action) => {
@@ -30,6 +31,8 @@ const reducer = (state, action) => {
       return { ...state, bbox: action.bbox };
     case actionType.SET_ZOOM:
       return { ...state, zoom: action.zoom };
+    case actionType.SET_LAND_USE_INFO:
+      return { ...state, landUseInfo: action.landUseInfo };
     default:
       return state;
   }

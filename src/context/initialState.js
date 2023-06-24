@@ -8,4 +8,5 @@ export const initialState = {
   forecastData: null,
   bbox: null,
   zoom: 5,
+  landUseInfo: {},
 };
