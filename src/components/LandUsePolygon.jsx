@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Polygon } from "react-leaflet";
+import { Polygon, useMap } from "react-leaflet";
 import { big, small } from "../constants";
 import { useStateValue } from "../context/StateProvider";
 import { polygon, area } from "@turf/turf";
@@ -29,6 +29,7 @@ const checkSmall = {};
 
 const LandUsePolygon = () => {
   const [{ zoom, mapMode, landUseInfo }, dispatch] = useStateValue();
+  const map = useMap();
 
   useEffect(() => {
     if (zoom == 14) {

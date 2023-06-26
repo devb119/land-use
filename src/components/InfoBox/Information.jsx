@@ -8,7 +8,7 @@ import { TabPanel } from "./InfoBox";
 import { getForecastWeather } from "../../apis";
 import MinMaxChart from "./MinMaxChart";
 import SingleLineChart from "./SingleLineChart";
-import { plants } from "../LegendLayer";
+import { emission, plants } from "../LegendLayer";
 
 const Information = () => {
   const [{ currentWeather, isLoadingInfo, latlng, landUseInfo, mapMode }] =
@@ -60,10 +60,19 @@ const Information = () => {
             <p className="mb-3">
               Selected area is{" "}
               <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
+            </p>
+            <p className="mb-3">
               <strong>
                 {plants.includes(landUseInfo?.label)
                   ? `This area absorbs approximately ${Math.floor(
                       0.0001 * landUseInfo?.area * 22.6
+                    )} tons of carbon dioxide per year`
+                  : null}
+              </strong>
+              <strong>
+                {emission.includes(landUseInfo?.label)
+                  ? `This area emits approximately ${Math.floor(
+                      0.0001 * landUseInfo?.area * 6.92 * 1.1022927689594355
                     )} tons of carbon dioxide per year`
                   : null}
               </strong>

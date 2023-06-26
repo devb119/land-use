@@ -36,6 +36,8 @@ export const plants = [
   "Vegetation",
 ];
 
+export const emission = ["Industrials areas", "Urban areas", "Urban_areas"];
+
 // { value: "Bare rocks", color: "#BEBEBE" },
 //     { value: "Bare soil", color: "#8B4513" },
 //     { value: "Bush, grassy savanna", color: "#C0D890" },
