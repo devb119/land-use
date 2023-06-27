@@ -1,11 +1,13 @@
 import React from "react";
 import { MdLandslide } from "react-icons/md";
+import { GiRoad } from "react-icons/gi";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
 const items = [
   { title: "LAND USE 1", icon: <MdLandslide /> },
   { title: "LAND USE 2", icon: <MdLandslide /> },
+  { title: "ROADS", icon: <GiRoad /> },
 ];
 const Sidebar = () => {
   const [{ mapMode }, dispatch] = useStateValue();

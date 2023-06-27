@@ -7,6 +7,7 @@ import {
   MyLayer,
   MyPopup,
   OWMTileLayer,
+  Roads,
   SearchBar,
 } from "../components";
 import GeneralInfo from "../components/GeneralInfo";
@@ -29,6 +30,7 @@ const LeafletMap = () => {
       <MyPopup />
       <MyLayer />
       <LandUsePolygon />
+      <Roads />
       <CountryBox />
       <OWMTileLayer />
       <GeneralInfo />
