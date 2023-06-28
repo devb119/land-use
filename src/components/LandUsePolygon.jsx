@@ -39,6 +39,15 @@ const LandUsePolygon = () => {
       dispatch({ type: actionType.SET_LAND_USE_INFO, landUseInfo: {} });
   }, [zoom]);
 
+  useEffect(() => {
+    if (mapMode.title === "LAND USE 2") {
+      map.fitBounds([
+        [-28.1567145633876272, 153.3437067822543725],
+        [-27.9648045166695525, 153.5003235987372818],
+      ]);
+    }
+  }, [mapMode]);
+
   return (
     <>
       {mapMode?.title === "LAND USE 2" && landUseInfo?.polygon ? (

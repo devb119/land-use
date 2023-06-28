@@ -1,6 +1,7 @@
-import { Polyline } from "react-leaflet";
+import { Polyline, useMap } from "react-leaflet";
 import { useStateValue } from "../context/StateProvider";
 import { goldcoast } from "../constants";
+import { useEffect } from "react";
 
 const colors = [
   { value: "residential", color: "#a291ce" },
@@ -57,6 +58,16 @@ const colors = [
 
 const Roads = () => {
   const [{ mapMode }] = useStateValue();
+  const map = useMap();
+
+  useEffect(() => {
+    if (mapMode.title === "ROADS") {
+      map.fitBounds([
+        [-28.1567145633876272, 153.3437067822543725],
+        [-27.9648045166695525, 153.5003235987372818],
+      ]);
+    }
+  }, [mapMode]);
   return (
     mapMode.title === "ROADS" &&
     goldcoast.map((road) => (
