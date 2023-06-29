@@ -11,6 +11,11 @@ import SingleLineChart from "./SingleLineChart";
 import { emission, plants } from "../LegendLayer";
 import { menuValues } from "../Sidebar";
 
+const AVG_HOUSEHOLD_SIZE = 2.48;
+const PEOPLE_PER_KM2 = 3;
+const m2ToKm2 = 0.0001;
+const AVG_PLANT_CO2 = 22.6;
+
 const Information = () => {
   const [
     { currentWeather, isLoadingInfo, latlng, landUseInfo, roadInfo, mapMode },
@@ -58,23 +63,39 @@ const Information = () => {
             <p className="mb-3">
               According to land use data, current location is{" "}
               <strong>{landUseInfo?.label}</strong> area.
-            </p>
-            <p className="mb-3">
-              Selected area is{" "}
-              <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
+              <p className="mb-3">
+                Selected area is{" "}
+                <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
+              </p>
+              {["Urban_areas", "Urban areas"].includes(landUseInfo.label) ? (
+                <p>
+                  It has about{" "}
+                  <strong>
+                    {Math.round(
+                      (landUseInfo.area * PEOPLE_PER_KM2 * m2ToKm2) /
+                        AVG_HOUSEHOLD_SIZE
+                    )}
+                  </strong>{" "}
+                  households (equally{" "}
+                  <strong>
+                    {Math.round(landUseInfo.area * PEOPLE_PER_KM2 * m2ToKm2)}{" "}
+                  </strong>
+                  people) that's residing on.
+                </p>
+              ) : null}
             </p>
             <p className="mb-3">
               <strong>
                 {plants.includes(landUseInfo?.label)
                   ? `This area absorbs approximately ${Math.floor(
-                      0.0001 * landUseInfo?.area * 22.6
+                      m2ToKm2 * landUseInfo?.area * AVG_PLANT_CO2
                     )} tons of carbon dioxide per year`
                   : null}
               </strong>
               <strong>
                 {emission.includes(landUseInfo?.label)
                   ? `This area emits approximately ${Math.floor(
-                      0.0001 * landUseInfo?.area * 6.92 * 1.1022927689594355
+                      m2ToKm2 * landUseInfo?.area * 6.92 * 1.1022927689594355
                     )} tons of carbon dioxide per year`
                   : null}
               </strong>
