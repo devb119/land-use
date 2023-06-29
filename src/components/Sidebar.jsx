@@ -5,15 +5,15 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
 const items = [
-  { title: "LAND USE 1", icon: <MdLandslide /> },
-  { title: "LAND USE 2", icon: <MdLandslide /> },
-  { title: "ROADS", icon: <GiRoad /> },
+  // { title: "LAND USE 1", value: "LAND_USE_1", icon: <MdLandslide /> },
+  { title: "LAND USE", value: "LAND_USE_2", icon: <MdLandslide /> },
+  { title: "ROADS", value: "ROADS", icon: <GiRoad /> },
 ];
 const Sidebar = () => {
   const [{ mapMode }, dispatch] = useStateValue();
 
   const handleChangeMode = (mode) => () => {
-    if (mapMode.title === mode.title)
+    if (mapMode.value === mode.value)
       dispatch({ type: actionType.SET_MAP_MODE, mapMode: {} });
     else dispatch({ type: actionType.SET_MAP_MODE, mapMode: mode });
   };
@@ -26,9 +26,9 @@ const Sidebar = () => {
       {items.map((item) => (
         <button
           className={`flex flex-col items-center justify-center hover:bg-white h-20 transition-all text-mainGray ${
-            mapMode.title === item.title ? "bg-white" : ""
+            mapMode.value === item.value ? "bg-white" : ""
           }`}
-          key={item.title}
+          key={item.value}
           onClick={handleChangeMode(item)}
         >
           <p className="text-2xl">{item.icon}</p>

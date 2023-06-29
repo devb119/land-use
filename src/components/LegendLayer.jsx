@@ -2,7 +2,7 @@ import React from "react";
 import { useStateValue } from "../context/StateProvider";
 
 const units = {
-  "LAND USE 1": [
+  LAND_USE_1: [
     { value: "Forest", color: "#298944", text: "#ffffff" },
     { value: "Low-density vegetation", color: "#ADFFB5", text: "#333333" },
     { value: "Bare soil", color: "#000000", text: "#ffffff" },
@@ -11,7 +11,7 @@ const units = {
     { value: "Rural area", color: "#47828F", text: "#ffffff" },
     { value: "Water", color: "#0000FF", text: "#ffffff" },
   ],
-  "LAND USE 2": [
+  LAND_USE_2: [
     { value: "Bare rocks", color: "#BEBEBE" },
     { value: "Bare soil", color: "#8B4513" },
     { value: "Bush, grassy savanna", color: "#C0D890" },
@@ -110,17 +110,13 @@ export const emission = ["Industrials areas", "Urban areas", "Urban_areas"];
 const LegendLayer = () => {
   const [{ mapMode }] = useStateValue();
   return (
-    mapMode.title && (
+    mapMode.value && (
       <div className="flex flex-col absolute p-0 m-0 text-center font-bold right-8 top-32">
         <span className="bg-white">{mapMode.unit}</span>
-        {units[mapMode.title]?.map((valueUnit, index) => {
+        {units[mapMode.value]?.map((valueUnit, index) => {
           return (
             <span
-              className={`px-2 text-center ${
-                mapMode.title === "CLOUD" || mapMode.title === "PRECIPITATION"
-                  ? "text-gray-800"
-                  : "text-white"
-              } font-bold`}
+              className={`px-2 text-center text-white font-bold`}
               key={index}
               style={{
                 background: `${valueUnit.color}`,

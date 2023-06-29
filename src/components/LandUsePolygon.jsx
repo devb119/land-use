@@ -40,7 +40,7 @@ const LandUsePolygon = () => {
   }, [zoom]);
 
   useEffect(() => {
-    if (mapMode.title === "LAND USE 2") {
+    if (mapMode.value === "LAND_USE_2") {
       map.fitBounds([
         [-28.1567145633876272, 153.3437067822543725],
         [-27.9648045166695525, 153.5003235987372818],
@@ -50,7 +50,7 @@ const LandUsePolygon = () => {
 
   return (
     <>
-      {mapMode?.title === "LAND USE 2" && landUseInfo?.polygon ? (
+      {mapMode?.value === "LAND_USE_2" && landUseInfo?.polygon ? (
         <Polygon
           pathOptions={{ color: colorMap[landUseInfo?.label] }}
           positions={landUseInfo?.polygon}
@@ -58,7 +58,7 @@ const LandUsePolygon = () => {
           fillOpacity={0.8}
         />
       ) : null}
-      {mapMode.title === "LAND USE 2"
+      {mapMode.value === "LAND_USE_2"
         ? zoom > 12
           ? small.map((feature) => {
               // checkSmall[feature.label] = "yeah";

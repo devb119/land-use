@@ -52,7 +52,7 @@ const Information = () => {
   ) : (
     <div className="flex flex-col gap-0">
       <div className="mb-3">
-        {mapMode?.title === "LAND USE 2" && landUseInfo?.label ? (
+        {mapMode?.value === "LAND_USE_2" && landUseInfo?.label ? (
           <>
             <p className="mb-3">
               According to land use data, current location is{" "}

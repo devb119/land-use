@@ -63,7 +63,7 @@ const Roads = () => {
   const map = useMap();
 
   useEffect(() => {
-    if (mapMode.title === "ROADS") {
+    if (mapMode.value === "ROADS") {
       map.fitBounds([
         [-28.1567145633876272, 153.3437067822543725],
         [-27.9648045166695525, 153.5003235987372818],
@@ -73,7 +73,7 @@ const Roads = () => {
   }, [mapMode]);
   return (
     <>
-      {mapMode?.title === "ROADS" && roadInfo?.polyline ? (
+      {mapMode?.value === "ROADS" && roadInfo?.polyline ? (
         <Polyline
           pathOptions={{
             color: colors.find((el) => el.value === roadInfo.type).color,
@@ -82,7 +82,7 @@ const Roads = () => {
           weight={8}
         />
       ) : null}
-      {mapMode.title === "ROADS" &&
+      {mapMode.value === "ROADS" &&
         goldcoast.map((road, i) => (
           <Polyline
             pathOptions={{

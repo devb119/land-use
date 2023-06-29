@@ -16,7 +16,7 @@ const MyLayer = () => {
   const [{ mapMode }] = useStateValue();
 
   useEffect(() => {
-    if (mapMode.title === "LAND USE 1") {
+    if (mapMode.value === "LAND_USE_1") {
       map.addLayer(layer);
     } else {
       map.removeLayer(layer);
