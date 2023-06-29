@@ -1,6 +1,7 @@
 import { useMap } from "react-leaflet";
 import { useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
+import { menuValues } from "./Sidebar";
 
 const layer = L.tileLayer.wms("http://106.254.237.82:8080/geoserver/wms", {
   layers: "GU:big_layer",
@@ -16,7 +17,7 @@ const MyLayer = () => {
   const [{ mapMode }] = useStateValue();
 
   useEffect(() => {
-    if (mapMode.value === "LAND_USE_1") {
+    if (mapMode.value === menuValues.LAND_USE_1) {
       map.addLayer(layer);
     } else {
       map.removeLayer(layer);

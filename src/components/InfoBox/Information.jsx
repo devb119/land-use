@@ -9,6 +9,7 @@ import { getForecastWeather } from "../../apis";
 import MinMaxChart from "./MinMaxChart";
 import SingleLineChart from "./SingleLineChart";
 import { emission, plants } from "../LegendLayer";
+import { menuValues } from "../Sidebar";
 
 const Information = () => {
   const [
@@ -52,7 +53,7 @@ const Information = () => {
   ) : (
     <div className="flex flex-col gap-0">
       <div className="mb-3">
-        {mapMode?.value === "LAND_USE_2" && landUseInfo?.label ? (
+        {mapMode?.value === menuValues.LAND_USE_2 && landUseInfo?.label ? (
           <>
             <p className="mb-3">
               According to land use data, current location is{" "}

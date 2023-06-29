@@ -4,6 +4,11 @@ import { GiRoad } from "react-icons/gi";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
+export const menuValues = {
+  LAND_USE_1: "LAND_USE_1",
+  LAND_USE_2: "LAND_USE_2",
+  ROADS: "ROADS",
+};
 const items = [
   // { title: "LAND USE 1", value: "LAND_USE_1", icon: <MdLandslide /> },
   { title: "LAND USE", value: "LAND_USE_2", icon: <MdLandslide /> },
@@ -20,7 +25,7 @@ const Sidebar = () => {
 
   return (
     <div className="fixed bg-gray-200 left-0 h-screen top-0 z-10 flex flex-col w-16">
-      <div className="h-24 flex items-center justify-center">
+      <div className="h-24 flex items-center justify-center cursor-pointer">
         <img src="/australia.svg" className="w-4/5" alt="australia symbol" />
       </div>
       {items.map((item) => (
