@@ -1,6 +1,6 @@
 import { Polyline, useMap } from "react-leaflet";
 import { useStateValue } from "../context/StateProvider";
-import { goldcoast } from "../constants";
+import { goldcoastSmall as goldcoast } from "../constants";
 import { useEffect } from "react";
 import { lineDistance } from "@turf/turf";
 import { actionType } from "../context/reducer";
@@ -59,7 +59,7 @@ const colors = [
 ];
 
 const Roads = () => {
-  const [{ mapMode, roadInfo }, dispatch] = useStateValue();
+  const [{ mapMode, roadInfo, zoom }, dispatch] = useStateValue();
   const map = useMap();
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const Roads = () => {
               color: colors.find((el) => el.value === road.type).color,
             }}
             positions={road.polyline}
-            weight={4}
+            weight={3}
             key={i}
             eventHandlers={{
               click: () => {
