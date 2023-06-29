@@ -57,9 +57,7 @@ const LandUsePolygon = () => {
           fill={true}
           fillOpacity={0.8}
         />
-      ) : (
-        ""
-      )}
+      ) : null}
       {mapMode.title === "LAND USE 2"
         ? zoom > 12
           ? small.map((feature) => {
@@ -81,6 +79,10 @@ const LandUsePolygon = () => {
                           area: S,
                           polygon: feature.polygon,
                         },
+                      });
+                      dispatch({
+                        type: actionType.SET_IS_OPEN_INFO,
+                        isOpenInfo: true,
                       });
                     },
                   }}
@@ -105,6 +107,10 @@ const LandUsePolygon = () => {
                           area: S,
                           polygon: feature.polygon,
                         },
+                      });
+                      dispatch({
+                        type: actionType.SET_IS_OPEN_INFO,
+                        isOpenInfo: true,
                       });
                     },
                   }}

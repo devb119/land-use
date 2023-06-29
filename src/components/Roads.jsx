@@ -2,6 +2,8 @@ import { Polyline, useMap } from "react-leaflet";
 import { useStateValue } from "../context/StateProvider";
 import { goldcoast } from "../constants";
 import { useEffect } from "react";
+import { lineDistance } from "@turf/turf";
+import { actionType } from "../context/reducer";
 
 const colors = [
   { value: "residential", color: "#a291ce" },
@@ -57,7 +59,7 @@ const colors = [
 ];
 
 const Roads = () => {
-  const [{ mapMode }] = useStateValue();
+  const [{ mapMode, roadInfo }, dispatch] = useStateValue();
   const map = useMap();
 
   useEffect(() => {
@@ -67,18 +69,56 @@ const Roads = () => {
         [-27.9648045166695525, 153.5003235987372818],
       ]);
     }
+    return () => dispatch({ type: actionType.SET_ROAD_INFO, roadInfo: {} });
   }, [mapMode]);
   return (
-    mapMode.title === "ROADS" &&
-    goldcoast.map((road) => (
-      <Polyline
-        pathOptions={{
-          color: colors.find((el) => el.value === road.type).color,
-        }}
-        positions={road.polyline}
-        weight={1}
-      />
-    ))
+    <>
+      {mapMode?.title === "ROADS" && roadInfo?.polyline ? (
+        <Polyline
+          pathOptions={{
+            color: colors.find((el) => el.value === roadInfo.type).color,
+          }}
+          positions={roadInfo?.polyline}
+          weight={8}
+        />
+      ) : null}
+      {mapMode.title === "ROADS" &&
+        goldcoast.map((road, i) => (
+          <Polyline
+            pathOptions={{
+              color: colors.find((el) => el.value === road.type).color,
+            }}
+            positions={road.polyline}
+            weight={4}
+            key={i}
+            eventHandlers={{
+              click: () => {
+                const line = {
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    type: "LineString",
+                    coordinates: road.polyline,
+                  },
+                };
+                const length = lineDistance(line);
+                dispatch({
+                  type: actionType.SET_ROAD_INFO,
+                  roadInfo: {
+                    type: road.type,
+                    length,
+                    polyline: road.polyline,
+                  },
+                });
+                dispatch({
+                  type: actionType.SET_IS_OPEN_INFO,
+                  isOpenInfo: true,
+                });
+              },
+            }}
+          />
+        ))}
+    </>
   );
 };
 
