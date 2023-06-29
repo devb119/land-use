@@ -9,4 +9,5 @@ export const initialState = {
   bbox: null,
   zoom: 5,
   landUseInfo: {},
+  roadInfo: {}
 };

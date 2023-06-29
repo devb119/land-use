@@ -11,8 +11,9 @@ import SingleLineChart from "./SingleLineChart";
 import { emission, plants } from "../LegendLayer";
 
 const Information = () => {
-  const [{ currentWeather, isLoadingInfo, latlng, landUseInfo, mapMode }] =
-    useStateValue();
+  const [
+    { currentWeather, isLoadingInfo, latlng, landUseInfo, roadInfo, mapMode },
+  ] = useStateValue();
   const [pressureChartData, setPressureChartData] = useState(null);
   const [humidityChartData, setHumidityChartData] = useState(null);
   const [cloudsChartData, setCloudsChartData] = useState(null);
@@ -79,7 +80,17 @@ const Information = () => {
             </p>
           </>
         ) : null}
-
+        {mapMode?.title === "ROADS" && roadInfo?.type ? (
+          <>
+            <p className="mb-3">
+              According to land use data, this road is of type{" "}
+              <strong>{roadInfo?.type}</strong>.
+            </p>
+            <p className="mb-3">
+              Selected road is <strong>{roadInfo?.length.toFixed(2)}km</strong>.{" "}
+            </p>
+          </>
+        ) : null}
         <h6 className="uppercase mb-1 text-active text-lg">Current weather</h6>
         <div className="mt-0 mb-1 flex gap-3">
           {currentWeather ? (
