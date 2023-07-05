@@ -10,11 +10,35 @@ import MinMaxChart from "./MinMaxChart";
 import SingleLineChart from "./SingleLineChart";
 import { emission, plants } from "../LegendLayer";
 import { menuValues } from "../Sidebar";
+import {
+  AVG_HOUSEHOLD_SIZE,
+  PEOPLE_PER_KM2,
+  M2_TO_KM2,
+  AVG_PLANT_CO2,
+  FOREST_AREA,
+  TOTAL_ROAD_LENGTH,
+  URBAN_LAND_AREA,
+} from "../../constants/information";
 
-const AVG_HOUSEHOLD_SIZE = 2.48;
-const PEOPLE_PER_KM2 = 3;
-const m2ToKm2 = 0.0001;
-const AVG_PLANT_CO2 = 22.6;
+const urbanAreas = ["Urban_areas", "Urban areas"];
+const agri = ["Agriculture"];
+
+const hasPercentageData = [...plants, ...urbanAreas];
+function getPercentageAndTotalType(landuse) {
+  if (plants.includes(landuse.label))
+    return [((landuse.area * M2_TO_KM2) / FOREST_AREA) * 100, "forest areas"];
+  if (urbanAreas.includes(landuse.label))
+    return [
+      ((landuse.area * M2_TO_KM2) / URBAN_LAND_AREA) * 100,
+      "urban areas",
+    ];
+  if (agri.includes(landuse.label))
+    return [
+      ((landuse.area * M2_TO_KM2) / URBAN_LAND_AREA) * 100,
+      "agricultural land area",
+    ];
+  return false;
+}
 
 const Information = () => {
   const [
@@ -25,6 +49,8 @@ const Information = () => {
   const [cloudsChartData, setCloudsChartData] = useState(null);
   const [temperatureChartData, setTemperatureChartData] = useState(null);
   const [value, setValue] = useState(0);
+
+  const percentage = getPercentageAndTotalType(landUseInfo);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -66,19 +92,25 @@ const Information = () => {
               <p className="mb-3">
                 Selected area is{" "}
                 <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
+                {percentage ? (
+                  <span>
+                    It accounts for <strong>{percentage[0].toFixed(2)}%</strong>{" "}
+                    of the total {percentage[1]} in Australia.
+                  </span>
+                ) : null}
               </p>
-              {["Urban_areas", "Urban areas"].includes(landUseInfo.label) ? (
+              {urbanAreas.includes(landUseInfo.label) ? (
                 <p>
                   It has about{" "}
                   <strong>
                     {Math.round(
-                      (landUseInfo.area * PEOPLE_PER_KM2 * m2ToKm2) /
+                      (landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2) /
                         AVG_HOUSEHOLD_SIZE
                     )}
                   </strong>{" "}
                   households (equally{" "}
                   <strong>
-                    {Math.round(landUseInfo.area * PEOPLE_PER_KM2 * m2ToKm2)}{" "}
+                    {Math.round(landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2)}{" "}
                   </strong>
                   people) that's residing on.
                 </p>
@@ -88,14 +120,14 @@ const Information = () => {
               <strong>
                 {plants.includes(landUseInfo?.label)
                   ? `This area absorbs approximately ${Math.floor(
-                      m2ToKm2 * landUseInfo?.area * AVG_PLANT_CO2
+                      M2_TO_KM2 * landUseInfo?.area * AVG_PLANT_CO2
                     )} tons of carbon dioxide per year`
                   : null}
               </strong>
               <strong>
                 {emission.includes(landUseInfo?.label)
-                  ? `This area emits approximately ${Math.floor(
-                      m2ToKm2 * landUseInfo?.area * 6.92 * 1.1022927689594355
+                  ? `This area emits approximately ${Math.round(
+                      M2_TO_KM2 * landUseInfo?.area * 6.92 * 1.1022927689594355
                     )} tons of carbon dioxide per year`
                   : null}
               </strong>
@@ -110,6 +142,13 @@ const Information = () => {
             </p>
             <p className="mb-3">
               Selected road is <strong>{roadInfo?.length.toFixed(2)}km</strong>.{" "}
+              <span>
+                It accounts for{" "}
+                <strong>
+                  {((roadInfo?.length / TOTAL_ROAD_LENGTH) * 100).toFixed(2)}%
+                </strong>{" "}
+                of the total road length in Australia.
+              </span>
             </p>
           </>
         ) : null}
