@@ -70,7 +70,6 @@ const LandUsePolygon = () => {
                   key={feature.polygon[0]}
                   eventHandlers={{
                     click: () => {
-                      console.log(feature.label);
                       const S = area(polygon([feature.polygon]));
                       dispatch({
                         type: actionType.SET_LAND_USE_INFO,

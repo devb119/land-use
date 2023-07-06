@@ -18,6 +18,8 @@ import {
   FOREST_AREA,
   TOTAL_ROAD_LENGTH,
   URBAN_LAND_AREA,
+  AGRICULTURE_LAND_AREA,
+  NUMBER_OF_HOUSEHOLD,
 } from "../../constants/information";
 
 const urbanAreas = ["Urban_areas", "Urban areas"];
@@ -34,7 +36,7 @@ function getPercentageAndTotalType(landuse) {
     ];
   if (agri.includes(landuse.label))
     return [
-      ((landuse.area * M2_TO_KM2) / URBAN_LAND_AREA) * 100,
+      ((landuse.area * M2_TO_KM2) / AGRICULTURE_LAND_AREA) * 100,
       "agricultural land area",
     ];
   return false;
@@ -94,7 +96,7 @@ const Information = () => {
                 <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
                 {percentage ? (
                   <span>
-                    It accounts for <strong>{percentage[0].toFixed(2)}%</strong>{" "}
+                    It accounts for <strong>{percentage[0].toFixed(5)}%</strong>{" "}
                     of the total {percentage[1]} in Australia.
                   </span>
                 ) : null}
@@ -103,16 +105,27 @@ const Information = () => {
                 <p>
                   It has about{" "}
                   <strong>
-                    {Math.round(
+                    {Math.ceil(
                       (landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2) /
                         AVG_HOUSEHOLD_SIZE
                     )}
                   </strong>{" "}
                   households (equally{" "}
                   <strong>
-                    {Math.round(landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2)}{" "}
+                    {Math.ceil(landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2)}{" "}
                   </strong>
-                  people) that's residing on.
+                  people) that's residing on. This number of household accounts
+                  for{" "}
+                  <strong>
+                    {(
+                      ((landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2) /
+                        AVG_HOUSEHOLD_SIZE /
+                        NUMBER_OF_HOUSEHOLD) *
+                      100
+                    ).toFixed(5)}
+                    %
+                  </strong>{" "}
+                  households in Australia
                 </p>
               ) : null}
             </p>
@@ -145,7 +158,7 @@ const Information = () => {
               <span>
                 It accounts for{" "}
                 <strong>
-                  {((roadInfo?.length / TOTAL_ROAD_LENGTH) * 100).toFixed(2)}%
+                  {((roadInfo?.length / TOTAL_ROAD_LENGTH) * 100).toFixed(5)}%
                 </strong>{" "}
                 of the total road length in Australia.
               </span>
