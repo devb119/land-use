@@ -101,6 +101,7 @@ const Roads = () => {
                     coordinates: road.polyline,
                   },
                 };
+                console.log(road.polyline);
                 const length = lineDistance(line);
                 dispatch({
                   type: actionType.SET_ROAD_INFO,
