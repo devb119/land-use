@@ -71,19 +71,22 @@ const Roads = () => {
     }
     return () => dispatch({ type: actionType.SET_ROAD_INFO, roadInfo: {} });
   }, [mapMode]);
+  console.log(roadInfo);
   return (
     <>
-      {mapMode?.value === "ROADS" && roadInfo?.polyline ? (
-        <Polyline
-          pathOptions={{
-            color: colors.find((el) => el.value === roadInfo.type).color,
-          }}
-          positions={roadInfo?.polyline}
-          weight={8}
-        />
-      ) : null}
+      {mapMode?.value === "ROADS" && roadInfo?.polylines
+        ? roadInfo.polylines.map((polyline) => (
+            <Polyline
+              pathOptions={{
+                color: "#FF0000",
+              }}
+              positions={polyline}
+              weight={8}
+            />
+          ))
+        : null}
       {mapMode.value === "ROADS" &&
-        goldcoast.map((road, i) => (
+        goldcoast.map((road, i, roads) => (
           <Polyline
             pathOptions={{
               color: colors.find((el) => el.value === road.type).color,
@@ -93,6 +96,8 @@ const Roads = () => {
             key={i}
             eventHandlers={{
               click: () => {
+                let totalLength = 0;
+                const polylines = [];
                 const line = {
                   type: "Feature",
                   properties: {},
@@ -101,14 +106,31 @@ const Roads = () => {
                     coordinates: road.polyline,
                   },
                 };
-                console.log(road.polyline);
+                // Calculate length of each other connections
+                road.otherConnections.forEach((el) => {
+                  const road = roads[el];
+                  const line = {
+                    type: "Feature",
+                    properties: {},
+                    geometry: {
+                      type: "LineString",
+                      coordinates: road.polyline,
+                    },
+                  };
+                  const length = lineDistance(line);
+                  totalLength += length;
+                  polylines.push(road.polyline);
+                });
                 const length = lineDistance(line);
+                totalLength += length;
+                polylines.push(road.polyline);
                 dispatch({
                   type: actionType.SET_ROAD_INFO,
                   roadInfo: {
                     type: road.type,
-                    length,
+                    length: totalLength,
                     polyline: road.polyline,
+                    polylines,
                   },
                 });
                 dispatch({
