@@ -48,7 +48,7 @@ const InfoBox = () => {
         <Tab
           icon={<BsFillBarChartFill />}
           iconPosition="start"
-          label="Analysis"
+          label="General"
         />
       </Tabs>
       <div className="p-3 mt-fixed relative">

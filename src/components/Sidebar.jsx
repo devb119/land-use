@@ -3,16 +3,19 @@ import { MdLandslide } from "react-icons/md";
 import { GiRoad } from "react-icons/gi";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import { TbPolygon } from "react-icons/tb";
 
 export const menuValues = {
   LAND_USE_1: "LAND_USE_1",
   LAND_USE_2: "LAND_USE_2",
   ROADS: "ROADS",
+  ANNOTATE: "ANNOTATE",
 };
 const items = [
   // { title: "LAND USE 1", value: "LAND_USE_1", icon: <MdLandslide /> },
   { title: "LAND USE", value: "LAND_USE_2", icon: <MdLandslide /> },
   { title: "ROADS", value: "ROADS", icon: <GiRoad /> },
+  { title: "ANNOTATE", value: "ANNOTATE", icon: <TbPolygon /> },
 ];
 const Sidebar = () => {
   const [{ mapMode }, dispatch] = useStateValue();
