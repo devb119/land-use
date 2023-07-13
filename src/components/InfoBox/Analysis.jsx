@@ -1,5 +1,6 @@
 import React from "react";
 import { generalInfo } from "../LandUsePolygon";
+import { M2_TO_KM2 } from "../../constants/information";
 
 const Analysis = () => {
   return (
@@ -15,8 +16,12 @@ const Analysis = () => {
                 {key}:
               </p>
               <p key={generalInfo[key]} className="">
-                {new Intl.NumberFormat().format(generalInfo[key])}
-                {key === "absorption" || key === "emission" ? " tons" : "m2"}
+                {key === "absorption" || key === "emission"
+                  ? new Intl.NumberFormat().format(generalInfo[key])
+                  : new Intl.NumberFormat().format(
+                      generalInfo[key] * M2_TO_KM2
+                    )}
+                {key === "absorption" || key === "emission" ? " tons" : "km2"}
               </p>
             </>
           );
