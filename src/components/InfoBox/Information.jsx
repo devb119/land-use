@@ -8,7 +8,6 @@ import { TabPanel } from "./InfoBox";
 import { getForecastWeather } from "../../apis";
 import MinMaxChart from "./MinMaxChart";
 import SingleLineChart from "./SingleLineChart";
-import { emission, plants } from "../LegendLayer";
 import { menuValues } from "../Sidebar";
 import {
   AVG_HOUSEHOLD_SIZE,
@@ -21,22 +20,32 @@ import {
   AGRICULTURE_LAND_AREA,
   NUMBER_OF_HOUSEHOLD,
 } from "../../constants/information";
+import { generalInfo } from "../LandUsePolygon";
 
-const urbanAreas = ["Urban_areas", "Urban areas"];
-const agri = ["Agriculture"];
+export const urbanAreas = ["Urban_areas", "Urban areas"];
+export const agri = ["Agriculture"];
+export const emission = ["Industrials areas", "Urban areas", "Urban_areas"];
+export const plants = [
+  "Bush, grassy savanna",
+  "Dense vegetation, forests",
+  "Wooded savanna, forest path border",
+  "Vegetations",
+  "Vegetation",
+];
+export const industry = ["Industrials areas"];
 
 const hasPercentageData = [...plants, ...urbanAreas];
 function getPercentageAndTotalType(landuse) {
   if (plants.includes(landuse.label))
-    return [((landuse.area * M2_TO_KM2) / FOREST_AREA) * 100, "forest areas"];
-  if (urbanAreas.includes(landuse.label))
     return [
-      ((landuse.area * M2_TO_KM2) / URBAN_LAND_AREA) * 100,
-      "urban areas",
+      (landuse.area / generalInfo["vegetation area"]) * 100,
+      "forest areas",
     ];
+  if (urbanAreas.includes(landuse.label))
+    return [(landuse.area / generalInfo["urban area"]) * 100, "urban areas"];
   if (agri.includes(landuse.label))
     return [
-      ((landuse.area * M2_TO_KM2) / AGRICULTURE_LAND_AREA) * 100,
+      (landuse.area / generalInfo["agriculture area"]) * 100,
       "agricultural land area",
     ];
   return false;
@@ -96,8 +105,8 @@ const Information = () => {
                 <strong>{landUseInfo?.area.toFixed(1)}&#13217;</strong>.{" "}
                 {percentage ? (
                   <span>
-                    It accounts for <strong>{percentage[0].toFixed(5)}%</strong>{" "}
-                    of the total {percentage[1]} in Australia.
+                    It accounts for <strong>{percentage[0].toFixed(2)}%</strong>{" "}
+                    of the total {percentage[1]} in Gold Coast.
                   </span>
                 ) : null}
               </p>
@@ -122,7 +131,7 @@ const Information = () => {
                         AVG_HOUSEHOLD_SIZE /
                         NUMBER_OF_HOUSEHOLD) *
                       100
-                    ).toFixed(5)}
+                    ).toFixed(2)}
                     %
                   </strong>{" "}
                   households in Australia
@@ -158,7 +167,7 @@ const Information = () => {
               <span>
                 It accounts for{" "}
                 <strong>
-                  {((roadInfo?.length / TOTAL_ROAD_LENGTH) * 100).toFixed(5)}%
+                  {((roadInfo?.length / TOTAL_ROAD_LENGTH) * 100).toFixed(2)}%
                 </strong>{" "}
                 of the total road length in Australia.
               </span>

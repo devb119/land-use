@@ -71,7 +71,6 @@ const Roads = () => {
     }
     return () => dispatch({ type: actionType.SET_ROAD_INFO, roadInfo: {} });
   }, [mapMode]);
-  console.log(roadInfo);
   return (
     <>
       {mapMode?.value === "ROADS" && roadInfo?.polylines

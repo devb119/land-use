@@ -4,6 +4,8 @@ import { big, small } from "../constants";
 import { useStateValue } from "../context/StateProvider";
 import { polygon, area } from "@turf/turf";
 import { actionType } from "../context/reducer";
+import { agri, urbanAreas, plants, industry } from "./InfoBox/Information";
+import { M2_TO_KM2, AVG_PLANT_CO2 } from "../constants/information";
 
 const colorMap = {
   "Bare rocks": "#BEBEBE",
@@ -27,6 +29,16 @@ const colorMap = {
 const checkBig = {};
 const checkSmall = {};
 
+export const generalInfo = {
+  "total area": 0,
+  absorption: 0,
+  emission: 0,
+  "urban area": 0,
+  // industryArea: 0,
+  "vegetation area": 0,
+  "agriculture area": 0,
+};
+
 const LandUsePolygon = () => {
   const [{ zoom, mapMode, landUseInfo }, dispatch] = useStateValue();
   const map = useMap();
@@ -47,6 +59,30 @@ const LandUsePolygon = () => {
       ]);
     }
   }, [mapMode]);
+
+  useEffect(() => {
+    // Calculate statistics for general information of the map
+    big.forEach((feature) => {
+      const S = area(polygon([feature.polygon]));
+      if (plants.includes(feature.label)) {
+        generalInfo["vegetation area"] += S;
+        generalInfo.absorption += M2_TO_KM2 * S * AVG_PLANT_CO2;
+      } else if (urbanAreas.includes(feature.label)) {
+        generalInfo["urban area"] += S;
+        generalInfo.emission += M2_TO_KM2 * S * 6.92 * 1.1022927689594355;
+      } else if (agri.includes(feature.label)) {
+        generalInfo["agriculture area"] += S;
+      }
+      // } else if (industry.includes(feature.label)) {
+      //   generalInfo.industryArea += S;
+      //   generalInfo.emission +=
+      //     M2_TO_KM2 * S * 6.92 * 1.1022927689594355;
+      // }
+      generalInfo["total area"] += S;
+    });
+  }, []);
+
+  console.log(generalInfo);
 
   return (
     <>
@@ -91,6 +127,7 @@ const LandUsePolygon = () => {
           : big.map((feature) => {
               // checkBig[polygon.label] = "yeah";
               // console.log(checkBig);
+
               return (
                 <Polygon
                   pathOptions={{ color: colorMap[feature.label] }}
