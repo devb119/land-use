@@ -5,7 +5,12 @@ import { useStateValue } from "../context/StateProvider";
 import { polygon, area } from "@turf/turf";
 import { actionType } from "../context/reducer";
 import { agri, urbanAreas, plants, industry } from "./InfoBox/Information";
-import { M2_TO_KM2, AVG_PLANT_CO2 } from "../constants/information";
+import {
+  M2_TO_KM2,
+  AVG_PLANT_CO2,
+  PEOPLE_PER_KM2,
+  AVG_HOUSEHOLD_SIZE,
+} from "../constants/information";
 
 const colorMap = {
   "Bare rocks": "#BEBEBE",
@@ -37,6 +42,7 @@ export const generalInfo = {
   // industryArea: 0,
   "vegetation area": 0,
   "agriculture area": 0,
+  "households number": 0,
 };
 
 const LandUsePolygon = () => {
@@ -70,6 +76,8 @@ const LandUsePolygon = () => {
       } else if (urbanAreas.includes(feature.label)) {
         generalInfo["urban area"] += S;
         generalInfo.emission += M2_TO_KM2 * S * 6.92 * 1.1022927689594355;
+        generalInfo["households number"] +=
+          (S * PEOPLE_PER_KM2 * M2_TO_KM2) / AVG_HOUSEHOLD_SIZE;
       } else if (agri.includes(feature.label)) {
         generalInfo["agriculture area"] += S;
       }

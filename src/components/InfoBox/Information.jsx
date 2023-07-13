@@ -129,12 +129,12 @@ const Information = () => {
                     {(
                       ((landUseInfo.area * PEOPLE_PER_KM2 * M2_TO_KM2) /
                         AVG_HOUSEHOLD_SIZE /
-                        NUMBER_OF_HOUSEHOLD) *
+                        generalInfo["households number"]) *
                       100
                     ).toFixed(2)}
                     %
                   </strong>{" "}
-                  households in Australia
+                  households in Gold Coast.
                 </p>
               ) : null}
             </p>
