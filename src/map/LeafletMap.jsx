@@ -2,6 +2,7 @@ import React from "react";
 import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import {
+  Annotate,
   CountryBox,
   LandUsePolygon,
   MyLayer,
@@ -11,8 +12,11 @@ import {
   SearchBar,
 } from "../components";
 import GeneralInfo from "../components/GeneralInfo";
+import { useStateValue } from "../context/StateProvider";
+import { menuValues } from "../components/Sidebar";
 
 const LeafletMap = () => {
+  const [{ mapMode }] = useStateValue();
   return (
     <MapContainer
       center={[-24.327077, 134.248541]}
@@ -34,6 +38,7 @@ const LeafletMap = () => {
       <CountryBox />
       <OWMTileLayer />
       <GeneralInfo />
+      {mapMode.value === menuValues.ANNOTATE ? <Annotate /> : null}
     </MapContainer>
   );
 };

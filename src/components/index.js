@@ -9,3 +9,4 @@ export { default as MyLayer } from "./MyLayer";
 export { default as CountryBox } from "./CountryBox";
 export { default as LandUsePolygon } from "./LandUsePolygon";
 export { default as Roads } from "./Roads";
+export { default as Annotate } from "./Annotate";

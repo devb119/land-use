@@ -90,8 +90,6 @@ const LandUsePolygon = () => {
     });
   }, []);
 
-  console.log(generalInfo);
-
   return (
     <>
       {mapMode?.value === "LAND_USE_2" && landUseInfo?.polygon ? (
