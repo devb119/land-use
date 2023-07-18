@@ -21,6 +21,7 @@ const Annotate = () => {
   const [{ mapMode }] = useStateValue();
   const [polygon, setPolygon] = useState(apiData);
   const [result, setResult] = useState([]);
+  const [label, setLabel] = useState("");
   const map = useMap();
   useEffect(() => {
     map.fitBounds(apiData);
@@ -34,20 +35,49 @@ const Annotate = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (label.length === 0) {
+      alert("You haven't entered label");
+      return;
+    }
+    alert("Your label: " + label);
+  };
+
   console.log(result);
   return mapMode.value === menuValues.ANNOTATE ? (
-    <FeatureGroup>
-      <EditControl
-        position="bottomright"
-        onEdited={onEdited}
-        // onCreated={onCreated}
-        // onDeleted={this._onDeleted}
-        draw={{
-          rectangle: false,
-        }}
-      />
-      <Polygon positions={polygon} color="red" />
-    </FeatureGroup>
+    <>
+      <form
+        className="absolute right-8 top-32 z-[1000] flex items-center bg-white p-4 gap-2 rounded"
+        onSubmit={handleSubmit}
+      >
+        <input
+          type="text"
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          className="rounded-full p-2 text-lg border"
+        />
+        <button
+          type="submit"
+          className="bg-primary p-2 rounded-full text-lg text-white"
+          onClick={handleSubmit}
+        >
+          Save
+        </button>
+      </form>
+      <FeatureGroup>
+        <EditControl
+          position="bottomright"
+          onEdited={onEdited}
+          // onCreated={onCreated}
+          // onDeleted={this._onDeleted}
+          draw={{
+            rectangle: false,
+          }}
+        />
+        <Polygon positions={polygon} color="red" />
+      </FeatureGroup>
+    </>
   ) : null;
 };
 
